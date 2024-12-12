@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monitoramento de Vendas</title>
+</head>
+<body>
+    <h1>Monitoramento de Vendas</h1>
+    <ul id="vendas"></ul>
+    <script>
+        async function getVendas() {
+            const response = await fetch('<URL_DA_AZURE_FUNCTION>');
+            const vendas = await response.json();
+            const lista = document.getElementById('vendas');
+            vendas.forEach(venda => {
+                const item = document.createElement('li');
+                item.textContent = `Produto: ${venda.produto}, Valor: ${venda.valor}`;
+                lista.appendChild(item);
+            });
+        }
+        setInterval(getVendas, 5000); // Atualiza a cada 5 segundos
+    </script>
+</body>
+</html>
